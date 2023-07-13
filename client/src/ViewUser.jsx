@@ -34,6 +34,7 @@ function ViewUser() {
                         </tr>
                     </tbody>
                 </table>
+                <Link to="/" className="btn">GO BACK</Link>
             </div>
         </div>
     );

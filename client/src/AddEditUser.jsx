@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { addUser, updateUser, getUserById } from "./redux/userSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import "./style.css";
 
@@ -11,7 +11,7 @@ const initialState = {
   phone: "",
 };
 
-function UpdateUser() {
+function AddEditUser() {
   const [state, setState] = useState(initialState);
 
   const { name, email, phone } = state;
@@ -46,11 +46,11 @@ function UpdateUser() {
       .then(res => {
           dispatch(addUser(res.data));
           navigate('/');
-      })
+        })
       .catch(err => console.log(err))
     }
     else{
-    axios
+      axios
       .put(`http://localhost:5000/PUT/users/${id}`, state)
       .then((res) => {
         dispatch(updateUser({ id, ...state }));
@@ -107,11 +107,10 @@ function UpdateUser() {
             />
           </div>
           <input type="submit" value={id ? "UPDATE" : "CREATE"} className="btn mt-1" />
-
         </form>
       </div>
     </div>
   );
 }
 
-export default UpdateUser;
+export default AddEditUser;

@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes , Route } from "react-router-dom";
 import Users from './Users';
-import UpdateUser from './AddEditUser';
+import AddEditUser from './AddEditUser';
 import ViewUser from './ViewUser';
 
 function App() {
@@ -9,8 +9,8 @@ function App() {
     <BrowserRouter>
       <Routes>
           <Route path="/" element={<Users />} />
-          <Route path="/create" element={<UpdateUser />} />
-          <Route path="/edit/:id" element={<UpdateUser />} />
+          <Route path="/create" element={<AddEditUser />} />
+          <Route path="/edit/:id" element={<AddEditUser />} />
           <Route path="/view/:id" element={<ViewUser />} />
       </Routes>
     </BrowserRouter>
