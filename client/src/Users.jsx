@@ -5,12 +5,12 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { getUser, deleteUser } from './redux/userSlice';
+import "./style.css";
 
 function Users() { 
-
     const dispatch = useDispatch()
 
-  useEffect(() => {
+    useEffect(() => {
     const fetchData = async() => {
         try{
             const response = await axios.get('http://localhost:5000/GET/users');
@@ -20,10 +20,9 @@ function Users() {
         }
     }
     fetchData();
-}, [])
+    }, [])
 
     const users = useSelector(state => state.users.users)
-    // console.log(useSelector(state => state.users.users))
     
     const handleDelete = (id) => {
         axios.delete(`http://localhost:5000/DELETE/users/${id}`)
@@ -34,19 +33,23 @@ function Users() {
     }
 
     return (
-        <div className="d-flex vh-100 bg-primary justify-content-center align-items-center">
+        <div className="d-flex vh-100 justify-content-center align-items-center container1">
             <div className="w-50 bg-white rounded p-3">
-                <Link to="/create" className="btn btn-success btn-sm">
-                    Add +
+                <h4>USER MANAGEMENT SYSTEM</h4>
+                <Link to="/create" className="btn btn mb-3 float-end">
+                    ADD USER
                 </Link>
-                <table className="table">
+                <table className="table table-bordered">
+                    <colgroup>
+                        <col style={{ width: "30%" }} />
+                        <col style={{ width: "30%" }} />
+                        <col style={{ width: "35%" }} />
+                    </colgroup>
                     <thead>
                         <tr> 
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone Number</th>
-                            <th>Action</th>
+                            <th>ID</th>
+                            <th>NAME</th>
+                            <th>ACTION</th>
                         </tr> 
                     </thead>
                     <tbody>
@@ -56,12 +59,10 @@ function Users() {
                                 <tr>
                                 <td>{user.id}</td>
                                 <td>{user.name}</td>
-                                <td>{user.email}</td>
-                                <td>{user.phone}</td>
                                 <td>
-                                    <Link to={`/edit/${user.id}`} className="btn btn-sm btn-success me-2">Update</Link>
-                                    <button onClick={() => handleDelete(user.id)} className="btn btn-sm btn-danger me-2">Delete</button>
-                                    <Link to={`/view/${user.id}`} className="btn btn-sm btn-success">View</Link>
+                                    <Link to={`/view/${user.id}`} className="btn btn-sm me-4 ms-4">VIEW</Link>
+                                    <Link to={`/edit/${user.id}`} className="btn btn-sm me-4">EDIT</Link>
+                                    <button onClick={() => handleDelete(user.id)} className="btn btn-sm">DELETE</button>
                                 </td>
                                 </tr>
                             )})

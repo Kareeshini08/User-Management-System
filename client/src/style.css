@@ -1,0 +1,20 @@
+.container1,
+.btn,
+.btn:hover
+{
+    background-color: #A0C49D;
+}
+
+.btn{
+    font-weight: 400;
+}
+
+h4,
+thead{
+    text-align: center;
+}
+
+label
+{
+    font-weight: 600;
+}

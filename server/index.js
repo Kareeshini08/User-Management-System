@@ -66,15 +66,6 @@ app.put("/PUT/users/:id", (req, res) => {
     });
 });
 
-app.get("/", (req, res) => {
-    // const sql = "INSERT INTO users (name, email, phone) VALUES ('john', 'john@gmail.com', 9564347865)";
-    // db.query(sql, (error, result) => {
-    //     console.log(error)
-    //     console.log(result);
-    //     res.send("Hello");
-    // });
-});
-
 app.listen(5000, () => {
     console.log("server is running on port 5000");
 })

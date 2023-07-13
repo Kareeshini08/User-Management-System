@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { updateUser, getUserById } from "./redux/userSlice";
+import { addUser, updateUser, getUserById } from "./redux/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import "./style.css";
 
 const initialState = {
   name: "",
@@ -38,8 +39,17 @@ function UpdateUser() {
     fetchData();
   }, []);
 
-  const handleUpdate = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    if(!id) {
+      axios.post('http://localhost:5000/POST/users', {name, email, phone})
+      .then(res => {
+          dispatch(addUser(res.data));
+          navigate('/');
+      })
+      .catch(err => console.log(err))
+    }
+    else{
     axios
       .put(`http://localhost:5000/PUT/users/${id}`, state)
       .then((res) => {
@@ -47,6 +57,7 @@ function UpdateUser() {
         navigate('/');
       })
       .catch((err) => console.log(err));
+    }
   };
 
   const handleChange = (e) => {
@@ -54,10 +65,14 @@ function UpdateUser() {
   };
 
   return (
-    <div className="d-flex vh-100 bg-primary justify-content-center align-items-center">
+    <div className="d-flex vh-100 justify-content-center align-items-center container1">
       <div className="w-50 bg-white rounded p-3">
-        <form onSubmit={handleUpdate}>
-          <h2>Update User</h2>
+        <form onSubmit={handleSubmit}>
+          { id ? (
+            <h4>UPDATE USER</h4>
+          ) : (
+          <h4>CREATE USER</h4>
+          )}          
           <div className="mb-2">
             <label htmlFor="">Name</label>
             <input
@@ -91,7 +106,8 @@ function UpdateUser() {
               onChange={handleChange}
             />
           </div>
-          <button className="btn btn-success">Update</button>
+          <input type="submit" value={id ? "UPDATE" : "CREATE"} className="btn mt-1" />
+
         </form>
       </div>
     </div>
